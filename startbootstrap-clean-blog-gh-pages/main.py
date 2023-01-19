@@ -1,11 +1,12 @@
 import requests
-from flask import Flask, render_template, redirect, url_for
+from flask import Flask, render_template, redirect, url_for, request
 from flask_bootstrap import Bootstrap
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, URL
 from flask_ckeditor import CKEditor, CKEditorField
+import datetime
 
 # # Delete this code:
 # import requests
@@ -74,9 +75,22 @@ def edit_post():
     return "Edit Post"
 
 
-@app.route("/new-post")
+@app.route("/new-post", methods=["GET", "POST"])
 def add_new_post():
     form = CreatePostForm()
+    if request.method == "POST":
+        current_date = (datetime.datetime.now()).strftime("%B %d,%Y")
+        new_post = BlogPost(
+            title=request.form["title"],
+            subtitle=request.form["subtitle"],
+            date=current_date,
+            body=request.form["body"],
+            author=request.form["author"],
+            img_url=request.form["img_url"],
+        )
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect(url_for('get_all_posts'))
     return render_template("make-post.html", form=form)
 
 
