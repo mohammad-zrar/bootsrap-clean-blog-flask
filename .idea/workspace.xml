@@ -5,123 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="471c5d21-d107-44a0-b469-c2697084d7df" name="Changes" comment=".gitignore added">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/Starting+Files+-+RESTful-blog-start.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/Starting+Files+-+blog-with-users-start.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/startbootstrap-clean-blog-gh-pages.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/img/about-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/img/contact-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/img/home-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/img/post-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/assets/img/post-sample-image.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/forms.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/instance/blog.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/instance/posts.db" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/js/scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/poetry.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/post.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/pyproject.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/img/about-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/img/contact-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/img/home-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/img/post-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/assets/img/post-sample-image.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/css/clean-blog.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/css/clean-blog.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/css/styles.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/img/about-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/img/contact-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/img/edit-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/img/index-bg.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/js/clean-blog.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/js/clean-blog.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/js/contact_me.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/js/jqBootstrapValidation.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/js/scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_bootstrap-overrides.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_contact.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_footer.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_global.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_masthead.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_mixins.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_navbar.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_post.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/scss/clean-blog.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-grid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-grid.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-grid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-grid.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-reboot.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-reboot.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-reboot.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap-reboot.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/css/bootstrap.min.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.bundle.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.bundle.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.bundle.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.bundle.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/bootstrap/js/bootstrap.min.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/all.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/all.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/brands.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/brands.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/fontawesome.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/fontawesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/regular.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/regular.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/solid.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/solid.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/svg-with-js.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/svg-with-js.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/v4-shims.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/css/v4-shims.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-brands-400.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-brands-400.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-brands-400.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-regular-400.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-regular-400.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-regular-400.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-solid-900.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-solid-900.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-solid-900.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-solid-900.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.slim.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.slim.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/static/vendor/jquery/jquery.slim.min.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/about.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/contact.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/footer.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/form_entry.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/header.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/make-post.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/post.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/startbootstrap-clean-blog-gh-pages/templates/register.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,7 +27,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "last_opened_file_path": "C:/Users/Mohammad/Documents/GitHub/bootsrap-clean-blog-flask",
-    "settings.editor.selected.configurable": "org.jetbrains.plugins.github.ui.GithubSettingsConfigurable"
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -167,6 +53,9 @@
     </task>
     <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
