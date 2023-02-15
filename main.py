@@ -16,8 +16,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
 from sqlalchemy.ext.declarative import declarative_base
-
 # -----------------------
+import os
+# from dotenv import load_dotenv, find_dotenv
+#
+# load_dotenv(verbose=True)
 
 
 app = Flask(__name__)
@@ -25,7 +28,13 @@ app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
 # #CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+print(os.environ.get("DATABASE_URL"))
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a/clean_blog"
+# For Internal
+# postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a/clean_blog
+# For External
+# postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a.oregon-postgres.render.com/clean_blog
+# username:password@location-of-the-database/name-of-database
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

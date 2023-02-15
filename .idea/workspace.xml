@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="471c5d21-d107-44a0-b469-c2697084d7df" name="Changes" comment=".gitignore added">
-      <change afterPath="$PROJECT_DIR$/Procfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +19,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2Kwllztloot6QYJQooyiBNdXL8e" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,8 +28,8 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/Mohammad/Documents/GitHub/bootsrap-clean-blog-flask",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+    "last_opened_file_path": "C:/Users/Mohammad/Documents/GitHub/clean-blog-flask",
+    "settings.editor.selected.configurable": "terminal"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -54,6 +56,11 @@
     <option name="localTasksCounter" value="2" />
     <servers />
   </component>
+  <component name="TerminalProjectNonSharedOptionsProvider">
+    <envs>
+      <env key="DATABASE_URL" value="postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a.oregon-postgres.render.com/clean_blog" />
+    </envs>
+  </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="requirements.txt" />
   </component>
@@ -69,6 +76,10 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$" />
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
     <MESSAGE value=".gitignore added" />
     <option name="LAST_COMMIT_MESSAGE" value=".gitignore added" />
   </component>
