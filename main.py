@@ -29,12 +29,14 @@ ckeditor = CKEditor(app)
 Bootstrap(app)
 # #CONNECT TO DB
 print(os.environ.get("DATABASE_URL"))
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a/clean_blog"
+app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
 # For Internal
 # postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a/clean_blog
 # For External
 # postgresql://clean_blog_user:OiSKVzgykBsTcTNAypoFqqqRC3Mzy2sI@dpg-cfme4gda499591e80ufg-a.oregon-postgres.render.com/clean_blog
 # username:password@location-of-the-database/name-of-database
+# Or use sqlite
+# sqlite:///db.sqlite3
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
