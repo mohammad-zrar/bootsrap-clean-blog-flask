@@ -1,58 +1,50 @@
+{% extends 'base.html' %}
 
-{% include "header.html" %}
+{% block title %}Clean Blog{% endblock %}
 
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url({{ url_for('static', filename='img/index-bg.jpg')}})">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>Mohamed's Blog</h1>
-            <span class="subheading">A collection of random musings.</span>
-          </div>
+{% block content %}
+{% include "./layout/navbar.html" %}
+{% include "./layout/header.html" %}
+
+<!-- Main Content-->
+
+        <div class="home-option text-center mb-4">
+            <ul class="option-list">
+                <li class="{{ 'on-option' if option != 'fav' else '' }}"><a class="unstyled-anchor" href="{{ url_for('home') }}">Posts</a></li>
+                <li class="{{ 'on-option' if option == 'fav' else '' }}"><a  class="unstyled-anchor" href="{{ url_for('favorites') }}">Favorites</a></li>
+            </ul>
         </div>
-      </div>
-    </div>
-  </header>
+        {% if option != "fav" %}
+        <!-- Posts section -->
+        <section id="posts">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="post.html">
+                            <h2 class="post-title">Man must explore, and this is exploration at its greatest</h2>
+                            <h3 class="post-subtitle">Problems look mighty small from 150 miles up</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="#!">Start Bootstrap</a>
+                            on September 24, 2022
+                        </p>
+                    </div>
+                    <!-- Divider-->
+                    <hr class="my-4" />
+                    <!-- Post preview-->
 
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        {% for post in all_posts %}
-        <div class="post-preview">
-          <a href="{{ url_for('show_post', post_id=post.id) }}">
-            <h2 class="post-title">
-              {{post.title}}
-            </h2>
-            <h3 class="post-subtitle">
-              {{post.subtitle}}
-            </h3>
-          </a>
-          <p class="post-meta">Posted by
-            <a href="#">{{post.author.name}}</a>
-            on {{post.date}}
-          {% if current_user.id == 1 %}
-            <a href="{{url_for('delete_post', post_id=post.id) }}">✘</a>
-            {% endif %}
-          
-          </p>
+
+                    <!-- Pager-->
+                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+                </div>
+            </div>
         </div>
-        <hr>
-        {% endfor %}
-
-
-        <!-- New Post -->
-        {% if current_user.id == 1 %}
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{url_for('add_new_post')}}">Create New Post</a>
-        </div>
+        </section> <!-- end of the posts -->
         {% endif %}
-      </div>
-    </div>
-  </div>
-  <hr>
+{% include "./layout/footer.html" %}
+{% endblock %}
 
 
-{% include "footer.html" %}

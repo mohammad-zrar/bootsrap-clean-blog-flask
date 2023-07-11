@@ -1,32 +1,19 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField
-from wtforms.validators import DataRequired, URL
-from flask_ckeditor import CKEditorField
-
-
-# #WTForm
-
-class CreatePostForm(FlaskForm):
-    title = StringField("Blog Post Title", validators=[DataRequired()])
-    subtitle = StringField("Subtitle", validators=[DataRequired()])
-    img_url = StringField("Blog Image URL", validators=[DataRequired(), URL()])
-    body = CKEditorField("Blog Content", validators=[DataRequired()])
-    submit = SubmitField("Submit Post")
+from wtforms import EmailField, SubmitField, StringField, PasswordField, RadioField, SelectField
+from wtforms.validators import DataRequired, Email, Length
+from wtforms.widgets import ListWidget, CheckboxInput
 
 
 class RegisterForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    name = StringField("Name", validators=[DataRequired()])
-    submit = SubmitField("Sign Me Up!")
-
-
-class LoginForm(FlaskForm):
-    email = StringField("Email", validators=[DataRequired()])
-    password = PasswordField("Password", validators=[DataRequired()])
-    submit = SubmitField("Log in")
-
-
-class CommentForm(FlaskForm):
-    comment_text = CKEditorField("Comment", validators=[DataRequired()])
-    submit = SubmitField("Submit Comment")
+    email = EmailField("Email: ", validators=[DataRequired("Required"), Email("No Valid")],
+                       render_kw={"style": "margin-bottom: 10px"})
+    username = StringField("Username: ", validators=[DataRequired("Required")],
+                           render_kw={"style": "margin-bottom: 10px"})
+    password = PasswordField("Password: ", validators=[DataRequired("Required"), Length(min=8)],
+                             render_kw={"style": "margin-bottom: 10px"})
+    bg_color = SelectField('Choice a background color',
+                           choices=[('000000', 'Black'), ('37306B', 'Navy'),
+                                    ('862B0D', 'Maroon'), ('454545', 'Dark Gray')],
+                           render_kw={"style": "margin-bottom: 10px"}
+                           )
+    submit = SubmitField("Submit", render_kw={"style": "margin-top: 18px;"})

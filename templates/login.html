@@ -1,43 +1,46 @@
+{% extends 'base.html' %}
 
-{% import "bootstrap/wtf.html" as wtf %}
+{% block title %}Login{% endblock %}
 
 {% block content %}
-{% include "header.html" %}
 
-<!-- Page Header -->
-<header class="masthead"
-        style="background-image: url('https://images.unsplash.com/photo-1484100356142-db6ab6244067?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=80')">
-    <div class="overlay"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-md-10 mx-auto">
-                <div class="page-heading">
-                    <h1>Log In</h1>
-                    <span class="subheading">Welcome Back!</span>
+<div class="container col-lg-4 col-md-8 col-sm-10 mx-auto my-5">
+    <h2 class="my-4">Login</h2>
+    <p><b>Clean Blog: </b>
+    Unleash your creativity and connect with like-minded writers. Log in to share your thoughts and engage in meaningful conversations.</p>
+
+    <form action="#" method="post">
+
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" id="username">
+        </div>
+
+        <!-- Passwrod -->
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+                <input type="password" name="password" class="form-control" id="password"/>
+                <div class="input-group-append">
+                    <button
+                            class="btn btn-outline-secondary"
+                            type="button"
+                            id="showPasswordBtn"
+                            onclick="togglePasswordVisibility()"
+                            value="submit"
+                    >
+                        Show
+                    </button>
                 </div>
             </div>
         </div>
-    </div>
-</header>
 
-<div class="container">
+        <p><a href="{{ url_for('reset_password') }}">Forgot account</a></p>
 
-    <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto content text-danger">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                    {% for message in messages %}
-                        <p>{{ message }}</p>
-                    {% endfor %}
-                {% endif %}
-            {% endwith %}
-        </div>
-        <div class="col-lg-8 col-md-10 mx-auto content">
-            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
-        </div>
-    </div>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <a type="submit" class="btn btn-secondary" href="{{ url_for('register') }}">Register</a>
+    </form>
 </div>
 
-{% include "footer.html" %}
 {% endblock %}
 
