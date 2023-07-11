@@ -148,3 +148,5 @@ def reset_password():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+# Just for test
