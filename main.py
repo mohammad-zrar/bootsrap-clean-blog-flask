@@ -7,20 +7,22 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # ---- Others ---- #
-from datetime import timedelta
+from datetime import timedelta, date
+from flask_ckeditor import CKEditor
 
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
-from forms import RegisterForm
+from forms import RegisterForm, CreatePostForm
 
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
 app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
+ckeditor = CKEditor(app)
 
 
 # ----- flask-login ------ #
@@ -124,6 +126,27 @@ def user_posts(username):
 @app.route("/<string:username>/favorites")
 def favorites(username):
     return render_template("index.html", option="fav", username=username)
+
+@app.route("/<string:username>/blog-post", methods=["POST", "GET"])
+@login_required
+def blog_post(username):
+    form = CreatePostForm()
+    if form.validate_on_submit():
+        print("Validate OK")
+        new_post = BlogPost(
+            author_id=current_user.id,
+            title=form.title.data,
+            subtitle=form.subtitle.data,
+            body=form.body.data,
+            img_url=form.img_url.data,
+            date=date.today().strftime("%B %d, %Y")
+        )
+        print("Object OK")
+        db.session.add(new_post)
+        db.session.commit()
+        print("Session committed")
+        return redirect(url_for("home"))
+    return render_template("blog-post.html", form=form)
 
 
 # Security Section

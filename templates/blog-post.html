@@ -1,3 +1,10 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Clean Blog{% endblock %}
+
+{% block content %}
+{% include "./layout/navbar.html" %}
 <header class="masthead pb-5" style="background-image: url({{ url_for('static', filename='./assets/img/home-bg.jpg')}})">
     <div class="container position-relative px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -10,11 +17,20 @@
             </div>
 
         </div>
-        <div class="text-center mt-4 mb-0">
-            <a class="btn btn-outline-primary text-center float-center mx-auto"
-               href="{{ url_for('blog_post', username=current_user.username) }}">Post a blog</a>
-        </div>
-
     </div>
 
 </header>
+
+<!-- Main Content-->
+
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        {{ ckeditor.load() }}
+        {{ ckeditor.config(name='body') }}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+      </div>
+    </div>
+  </div>
+{% include "./layout/footer.html" %}
+{% endblock %}
