@@ -58,6 +58,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     bg_color = db.Column(db.String(7))
+    bio = db.Column(db.String(250))
     posts = db.relationship("BlogPost", back_populates="author")
     comments = db.relationship("Comment", back_populates="comment_author")
 
