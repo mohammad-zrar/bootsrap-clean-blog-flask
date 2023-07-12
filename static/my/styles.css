@@ -48,6 +48,12 @@ margin-right: 32px;
 }
 }
 
+@media only screen and (max-width: 578px) {
+  .h1-header {
+    text-size: 0.5rem;
+}
+}
+
 
 
 
