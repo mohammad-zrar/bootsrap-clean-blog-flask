@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, session, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 
@@ -11,9 +11,7 @@ from datetime import timedelta
 
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import Table, Column, Integer, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
 # ---- Forms ---- #
 from forms import RegisterForm
@@ -111,8 +109,8 @@ db.create_all()
 
 @app.route("/")
 def home():
-    if "user" not in session:
-        return redirect(url_for("login"))
+    # if "user" not in session:
+    #     return redirect(url_for("login"))
     return render_template("index.html", option="home")
 
 
@@ -125,7 +123,26 @@ def favorites():
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if request.method == "POST":
-        return redirect(url_for('signup'))
+        username = request.form['username']
+        password = request.form['password']
+
+        # Find user by email entered.
+        user = User.query.filter_by(username=username).first()
+        if not user:
+            flash("That email does not exist, please try again.")
+            return redirect(url_for('login'))
+            # Password incorrect
+        elif not check_password_hash(user.password, password):
+            flash('Password incorrect, please try again.')
+            return redirect(url_for('login'))
+            # Email exists and password correct
+        else:
+            login_user(user)
+
+            print("Logged in")
+            print(current_user.username)
+            print(current_user.is_authenticated)
+            return redirect(url_for('home'))
     return render_template('login.html')
 
 
@@ -134,11 +151,35 @@ def register():
     register_form = RegisterForm()
     if register_form.validate_on_submit():
         email = register_form.email.data
-        username = register_form.username.data
+        username = register_form.username.data.lower()
         password = register_form.password.data
         bg_color = register_form.bg_color.data
-
+        user = User.query.filter_by(username=username).first()
+        if user:
+            flash("You've already signed up with that email, log in instead!")
+            return redirect("login")
+        else:
+            hash_and_salted_password = generate_password_hash(
+                password,
+                method='pbkdf2:sha256',
+                salt_length=8
+            )
+            new_user = User(
+                email=email,
+                username=username,
+                password=hash_and_salted_password,
+                bg_color=bg_color
+            )
+            db.session.add(new_user)
+            db.session.commit()
     return render_template("register.html", form=register_form)
+
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
 
 
 @app.route("/reset_password")

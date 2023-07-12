@@ -8,7 +8,13 @@
     <h2 class="my-4">Login</h2>
     <p><b>Clean Blog: </b>
     Unleash your creativity and connect with like-minded writers. Log in to share your thoughts and engage in meaningful conversations.</p>
-
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-warning my-1">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <form action="#" method="post">
 
         <div class="mb-3">

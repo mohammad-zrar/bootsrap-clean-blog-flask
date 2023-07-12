@@ -13,10 +13,15 @@
 
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Favorites</a></li>
+                {% if not current_user.is_authenticated: %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('login') }}">Login</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="">Register</a></li>
+                {% endif %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                <li class="nav-item me"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">Contact</a></li>
+                {% if current_user.is_authenticated: %}
+                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
                 <!-- Search Form -->
                 <li class="nav-item ms-5-lg">
                     <form class="d-flex mt-3 nav-search">
