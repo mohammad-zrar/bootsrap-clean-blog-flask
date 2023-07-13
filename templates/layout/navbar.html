@@ -16,17 +16,20 @@
                 {% if not current_user.is_authenticated: %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('login') }}">Login</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="">Register</a></li>
+
+                {% else %}
+                <li class="nav-item me"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Profile</a></li>
                 {% endif %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
-                <li class="nav-item me"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Profile</a></li>
+
                 {% if current_user.is_authenticated: %}
                 <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
                 <!-- Search Form -->
                 <li class="nav-item ms-5-lg">
-                    <form class="d-flex mt-3 nav-search">
+                    <form class="d-flex mt-3 nav-search" method="get" action="{{ url_for('search') }}">
                         <input class="form-control form-control-sm me-2 bg-transparent text-light" type="search"
-                               placeholder="Search" aria-label="Search">
+                               placeholder="Search by username" name="search" aria-label="Search">
                         <button class="btn btn-sm btn-primary text-transparent" type="submit">Search</button>
                     </form>
                 </li>

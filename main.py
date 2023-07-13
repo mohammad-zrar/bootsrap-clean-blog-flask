@@ -126,7 +126,7 @@ def home():
 def user_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        return "There is no user with that username"
+        return "<h1>There is no user with that username</h1>"
 
     limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).limit(4).all()
     return render_template("index.html", option="posts", user=user, blogs=limited_results)
@@ -170,6 +170,7 @@ def blog_post(username):
         return redirect(url_for('user_blogs', username=username))
 
 
+
 # Security Section
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -198,6 +199,11 @@ def login():
                     print("User Failed to login")
                 return redirect(url_for('home'))
         return render_template('login.html')
+
+@app.route("/search", methods=["POST", "GET"])
+def search():
+    if request.method == "GET":
+        return redirect(url_for("user_blogs", username=request.args.get('search')))
 
 
 @app.route("/register", methods=["POST", "GET"])
