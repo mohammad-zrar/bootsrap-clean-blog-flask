@@ -62,14 +62,14 @@ class User(UserMixin, db.Model):
     password = db.Column(db.String(100))
     bg_color = db.Column(db.String(7))
     bio = db.Column(db.String(250))
-    posts = db.relationship("BlogPost", back_populates="author")
+    blogs = db.relationship("BlogPost", back_populates="author")
     comments = db.relationship("Comment", back_populates="comment_author")
 
-    following = db.relationship(
+    favouring = db.relationship(
         'User', secondary=favorites,
         primaryjoin=(favorites.c.favorite_id == id),
         secondaryjoin=(favorites.c.favouring_id == id),
-        backref=db.backref('followers', lazy='dynamic'),
+        backref=db.backref('favorites', lazy='dynamic'),
         lazy='dynamic'
     )
 
@@ -83,7 +83,7 @@ class BlogPost(db.Model):
     # Create Foreign Key, "users.id" the users refers to the tablename of User.
     author_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     # Create reference to the User object, the "posts" refers to the posts protperty in the User class.
-    author = relationship("User", back_populates="posts")
+    author = relationship("User", back_populates="blogs")
 
     title = db.Column(db.String(250), unique=True, nullable=False)
     subtitle = db.Column(db.String(250), nullable=False)
@@ -129,7 +129,7 @@ def user_blogs(username):
         return "There is no user with that username"
 
     limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).limit(4).all()
-    return render_template("index.html", option="posts", user=user, posts=limited_results)
+    return render_template("index.html", option="posts", user=user, blogs=limited_results)
 
 
 @app.route("/<string:username>/favorites")
@@ -142,8 +142,8 @@ def all_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         return "There is no user with that username"
-    posts = db.session.query(BlogPost).filter(User.username == username).all()
-    return render_template("all-blogs.html", all_posts=posts, user=user)
+    blogs = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).all()
+    return render_template("all-blogs.html", all_blogs=blogs, user=user)
 
 
 @app.route("/<string:username>/blog-post", methods=["POST", "GET"])
@@ -211,6 +211,7 @@ def register():
             username = register_form.username.data.lower()
             password = register_form.password.data
             bg_color = register_form.bg_color.data
+            bio = register_form.bio.data
             user = User.query.filter_by(username=username).first()
             if user:
                 flash("You've already signed up with that email, log in instead!")
@@ -228,7 +229,8 @@ def register():
                     email=email,
                     username=username,
                     password=hash_and_salted_password,
-                    bg_color=bg_color
+                    bg_color=bg_color,
+                    bio = bio
                 )
                 db.session.add(new_user)
                 db.session.commit()

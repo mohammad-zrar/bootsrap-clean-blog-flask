@@ -6,41 +6,41 @@
 {% include "./layout/navbar.html" %}
 {% include "./layout/header.html" %}
 
-<!-- Main Content-->
+        <!-- Main Content-->
+    <div class="container px-4 px-lg-5">
+        {% for blog in all_blogs %}
+      <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+          <!-- Post preview-->
+          <div class="post-preview">
+            <a href="post.html">
+              <h2 class="post-title">
+                {{ blog.title }}
+              </h2>
+              <h3 class="post-subtitle">
+                {{ blog.subtitle }}
+              </h3>
+            </a>
+            <p class="post-meta">
+              Posted by
+              <a href="{{ url_for('user_blogs', username=blog.author.username) }}">{{blog.author.username}}</a>
+              {{ blog.date }}
+            </p>
+          </div>
+          <!-- Divider-->
+          <hr class="my-4" />
 
-
-
-        <!-- Posts section -->
-        <section id="posts">
-        <div class="container px-4 px-lg-5">
-
-            <div class="row gx-4 gx-lg-5 justify-content-center">
-                {% for post in all_posts %}
-                <div class="col-md-10 col-lg-8 col-xl-7">
-                    <!-- Post preview-->
-                    <div class="post-preview">
-                        <a href="post.html">
-                            <h2 class="post-title">{{ post.title }}</h2>
-                            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-                        </a>
-                        <p class="post-meta">
-                            Posted by
-                            <a href="#!">{{post.author.username}}</a>
-                            {{post.date}}
-                        </p>
-                    </div>
-                    <!-- Divider-->
-                    <hr class="my-4" />
-                    <!-- Post preview-->
-
-                    {% endfor %}
-                    <!-- Pager-->
-
-                </div>
-            </div>
         </div>
-        </section> <!-- end of the posts -->
-
+      </div>
+        {% endfor %}
+    </div>
+    {% if False %}
+     <div class=" justify-content-end mb-4 text-center">
+            <a class="btn btn-primary text-uppercase" href="{{ url_for('all_blogs', username=user.username) }}"
+              >Older Posts →</a
+            >
+          </div>
+    {% endif %}
 {% include "./layout/footer.html" %}
 {% endblock %}
 
