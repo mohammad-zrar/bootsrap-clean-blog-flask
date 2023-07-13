@@ -7,21 +7,15 @@
 {% include "./layout/header.html" %}
 
 <!-- Main Content-->
-        {% if current_user.username == user.username %}
-        <div class="home-option text-center mb-4">
-            <ul class="option-list">
-                <li class="{{ 'on-option' if option != 'fav' else '' }}"><a class="unstyled-anchor" href="{{ url_for('user_blogs', username=current_user.username) }}">Posts</a></li>
-                <li class="{{ 'on-option' if option == 'fav' else '' }}"><a  class="unstyled-anchor" href="{{ url_for('favorites', username=current_user.username) }}">Favorites</a></li>
-            </ul>
-        </div>
-        {% endif %}
-        {% if option != "fav" %}
+
+
+
         <!-- Posts section -->
         <section id="posts">
         <div class="container px-4 px-lg-5">
 
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                {% for post in posts %}
+                {% for post in all_posts %}
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <!-- Post preview-->
                     <div class="post-preview">
@@ -41,13 +35,12 @@
 
                     {% endfor %}
                     <!-- Pager-->
-                    <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase"
-                                                                    href="{{ url_for('all_blogs', username=user.username) }}">All posts →</a></div>
+
                 </div>
             </div>
         </div>
         </section> <!-- end of the posts -->
-        {% endif %}
+
 {% include "./layout/footer.html" %}
 {% endblock %}
 

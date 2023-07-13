@@ -4,4 +4,4 @@ Flask-Login
 Flask-WTF
 Jinja2
 Flask-Gravatar
-
+Flask-CKEditor

@@ -1,27 +1,29 @@
 # ---- Flask ---- #
+
+
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
-
+from flask_ckeditor import CKEditor
 # ---- For security ---- #
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # ---- Others ---- #
-from datetime import timedelta
+from datetime import timedelta, date
 
+from re import match
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
-from forms import RegisterForm
-
+from forms import RegisterForm, CreatePostForm
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
 app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
-
+ckeditor = CKEditor(app)
 
 # ----- flask-login ------ #
 login_manager = LoginManager()
@@ -31,6 +33,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 # ------------------------------ #
 
@@ -54,7 +57,7 @@ favorites = db.Table(
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100), unique=True)
+    email = db.Column(db.String(100))
     username = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     bg_color = db.Column(db.String(7))
@@ -69,6 +72,7 @@ class User(UserMixin, db.Model):
         backref=db.backref('followers', lazy='dynamic'),
         lazy='dynamic'
     )
+
 
 # Rest of the code remains the same
 
@@ -105,6 +109,8 @@ class Comment(db.Model):
 
 app.app_context().push()
 db.create_all()
+
+
 # ---- ---- ---- ---- #
 
 
@@ -113,12 +119,17 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else:
-        return redirect(url_for('user_posts', username=current_user.username))
+        return redirect(url_for('user_blogs', username=current_user.username))
 
 
-@app.route("/<string:username>/posts")
-def user_posts(username):
-    return render_template("index.html", option="posts", username=username)
+@app.route("/<string:username>/blogs")
+def user_blogs(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return "There is no user with that username"
+
+    limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).limit(4).all()
+    return render_template("index.html", option="posts", user=user, posts=limited_results)
 
 
 @app.route("/<string:username>/favorites")
@@ -126,11 +137,44 @@ def favorites(username):
     return render_template("index.html", option="fav", username=username)
 
 
+@app.route('/<string:username>/all-blogs')
+def all_blogs(username):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return "There is no user with that username"
+    posts = db.session.query(BlogPost).filter(User.username == username).all()
+    return render_template("all-blogs.html", all_posts=posts, user=user)
+
+
+@app.route("/<string:username>/blog-post", methods=["POST", "GET"])
+@login_required
+def blog_post(username):
+    if current_user.username == username:
+        form = CreatePostForm()
+        if form.validate_on_submit():
+            print("Validate OK")
+            new_post = BlogPost(
+                author_id=current_user.id,
+                title=form.title.data,
+                subtitle=form.subtitle.data,
+                body=form.body.data,
+                img_url=form.img_url.data,
+                date=date.today().strftime("%B %d, %Y")
+            )
+            db.session.add(new_post)
+            db.session.commit()
+            print("Session committed")
+            return redirect(url_for("home"))
+        return render_template("blog-post.html", form=form)
+    else:
+        return redirect(url_for('user_blogs', username=username))
+
+
 # Security Section
 @app.route("/login", methods=["POST", "GET"])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('user_posts', username=current_user.username))
+        return redirect(url_for('user_blogs', username=current_user.username))
     else:
         if request.method == "POST":
             username = request.form['username']
@@ -139,7 +183,7 @@ def login():
             # Find user by email entered.
             user = User.query.filter_by(username=username).first()
             if not user:
-                flash("That email does not exist, please try again.")
+                flash("That username does not exist, please try again.")
                 return redirect(url_for('login'))
                 # Password incorrect
             elif not check_password_hash(user.password, password):
@@ -151,7 +195,7 @@ def login():
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
-                    print("User Failed to loggin")
+                    print("User Failed to login")
                 return redirect(url_for('home'))
         return render_template('login.html')
 
@@ -159,7 +203,7 @@ def login():
 @app.route("/register", methods=["POST", "GET"])
 def register():
     if current_user.is_authenticated:
-        return redirect(url_for('user_posts', username=current_user.username))
+        return redirect(url_for('user_blogs', username=current_user.username))
     else:
         register_form = RegisterForm()
         if register_form.validate_on_submit():
@@ -170,6 +214,9 @@ def register():
             user = User.query.filter_by(username=username).first()
             if user:
                 flash("You've already signed up with that email, log in instead!")
+                return redirect("login")
+            elif not match(r'^[a-z][a-z0-9-_]*$', username):
+                flash("The username must be start with letters and only contains letter or - or _ or [0-9]")
                 return redirect("login")
             else:
                 hash_and_salted_password = generate_password_hash(
@@ -185,6 +232,13 @@ def register():
                 )
                 db.session.add(new_user)
                 db.session.commit()
+                login_user(new_user)
+
+                if current_user.is_authenticated:
+                    print(f"{current_user.username} logged in")
+                else:
+                    print("User Failed to login")
+                return redirect(url_for('home'))
         return render_template("register.html", form=register_form)
 
 
@@ -202,5 +256,3 @@ def reset_password():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-
