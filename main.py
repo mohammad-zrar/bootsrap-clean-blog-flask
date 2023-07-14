@@ -146,6 +146,17 @@ def all_blogs(username):
     return render_template("all-blogs.html", all_blogs=blogs, user=user)
 
 
+@app.route('/<string:username>/blog/<int:blog_id>')
+def blog(username, blog_id):
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        return "No user with that name"
+    blog = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
+    if blog is None:
+        return "No post with that id"
+    return render_template("blog.html", blog=blog, user=user)
+
+
 @app.route("/<string:username>/blog-post", methods=["POST", "GET"])
 @login_required
 def blog_post(username):
@@ -168,7 +179,6 @@ def blog_post(username):
         return render_template("blog-post.html", form=form)
     else:
         return redirect(url_for('user_blogs', username=username))
-
 
 
 # Security Section
@@ -199,6 +209,7 @@ def login():
                     print("User Failed to login")
                 return redirect(url_for('home'))
         return render_template('login.html')
+
 
 @app.route("/search", methods=["POST", "GET"])
 def search():
@@ -236,7 +247,7 @@ def register():
                     username=username,
                     password=hash_and_salted_password,
                     bg_color=bg_color,
-                    bio = bio
+                    bio=bio
                 )
                 db.session.add(new_user)
                 db.session.commit()
