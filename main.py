@@ -1,23 +1,20 @@
 # ---- Flask ---- #
-
-
 from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
+from flask_gravatar import Gravatar
 # ---- For security ---- #
 from werkzeug.security import generate_password_hash, check_password_hash
-
 # ---- Others ---- #
 from datetime import timedelta, date
-
 from re import match
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
-from forms import RegisterForm, CreatePostForm
+from forms import RegisterForm, CreatePostForm, CommentForm
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
@@ -34,7 +31,14 @@ login_manager.init_app(app)
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-
+gravatar = Gravatar(app,
+                    size=24,
+                    rating='g',
+                    default='mp',
+                    force_default=False,
+                    force_lower=False,
+                    use_ssl=False,
+                    base_url=None)
 # ------------------------------ #
 
 
@@ -146,15 +150,31 @@ def all_blogs(username):
     return render_template("all-blogs.html", all_blogs=blogs, user=user)
 
 
-@app.route('/<string:username>/blog/<int:blog_id>')
+@app.route('/<string:username>/blog/<int:blog_id>', methods=["GET", "POST"])
 def blog(username, blog_id):
+    global gravatar
     user = User.query.filter_by(username=username).first()
     if user is None:
         return "No user with that name"
     blog = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
     if blog is None:
         return "No post with that id"
-    return render_template("blog.html", blog=blog, user=user)
+    form = CommentForm()
+    # print(requested_post.comments[1].text)
+    # print(requested_post.comments[1].comment_author.name)
+    if form.validate_on_submit() and request.method == "POST":
+        print(blog.id)
+        new_comment = Comment(
+            comment_author=current_user,
+            parent_post=blog,
+            author_id=current_user.id,
+            post_id=blog.id,
+            text=form.comment_text.data
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        return redirect(url_for("blog", username=username, blog_id=blog_id))
+    return render_template("blog.html", blog=blog, user=user, form=form)
 
 
 @app.route("/<string:username>/blog-post", methods=["POST", "GET"])
