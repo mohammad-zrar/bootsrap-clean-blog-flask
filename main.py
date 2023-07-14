@@ -196,7 +196,7 @@ def blog_post(username):
             db.session.commit()
             print("Session committed")
             return redirect(url_for("home"))
-        return render_template("blog-post.html", form=form)
+        return render_template("blog-post.html", form=form, user=current_user)
     else:
         return redirect(url_for('user_blogs', username=username))
 

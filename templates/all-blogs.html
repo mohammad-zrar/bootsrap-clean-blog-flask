@@ -18,7 +18,7 @@
         <div class="col-md-10 col-lg-8 col-xl-7">
           <!-- Post preview-->
           <div class="post-preview">
-            <a href="post.html">
+            <a href="{{ url_for('blog', username=blog.author.username, blog_id=blog.id) }}">
               <h2 class="post-title">
                 {{ blog.title }}
               </h2>
