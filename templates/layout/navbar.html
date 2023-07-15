@@ -10,21 +10,18 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto py-4 py-lg-0">
-
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('user_blogs', username=current_user.username) }}">Blogs</a></li>
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('favorites', username=current_user.username) }}">Favorites</a></li>
                 {% if not current_user.is_authenticated: %}
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('login') }}">Login</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="">Register</a></li>
 
                 {% else %}
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('user_blogs', username=current_user.username) }}">Blogs</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('favorites', username=current_user.username) }}">Favorites</a></li>
                 <li class="nav-item me"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">Profile</a></li>
+                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
-                <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
 
-                {% if current_user.is_authenticated: %}
-                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('logout') }}">Logout</a></li>
-                {% endif %}
                 <!-- Search Form -->
                 <li class="nav-item ms-5-lg">
                     <form class="d-flex mt-3 nav-search" method="get" action="{{ url_for('search') }}">

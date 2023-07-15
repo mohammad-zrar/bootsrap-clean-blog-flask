@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Clean Blog{% endblock %}
+
+{% block content %}
+
+<a class="btn btn-outline-secondary mt-sm-5 ms-sm-5 mt-1 ms-1 p-2 " href="{{ url_for('blog', blog_id=blog_id, username=username) }}"><i
+        class="bi bi-caret-left-fill me-1"></i>Get back</a>
+<div class="container col-lg-6 col-md-10 col-sm-12 mx-auto my-5">
+
+    <div class="container">
+                {{ ckeditor.load() }}
+                {{ ckeditor.config(name='body') }}
+                {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+
+    </div>
+
+
+</div>
+{% include "./layout/footer.html" %}
+{% endblock %}

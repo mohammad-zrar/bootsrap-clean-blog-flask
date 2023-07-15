@@ -7,7 +7,7 @@
 
 <!-- Page Header-->
 <header class="masthead" style="background-color: #{{ user.bg_color }}; padding: 120px 0 100px;">
-    <div class="container position-relative px-4 px-lg-5">
+    <div class="container position-relative px-1 px-lg-2">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <div class="col-md-10 col-lg-8 col-xl-7">
                 <div class="post-heading">
@@ -21,6 +21,14 @@
                 </div>
             </div>
         </div>
+        {% if current_user.username == user.username %}
+        <div class="text-center mt-5 mb-0">
+            <a class="btn btn-outline-primary text-center float-center mx-1"
+               href="{{ url_for('edit_blog', username=current_user.username, blog_id=blog.id) }}">Edit the blog</a>
+            <a class="btn btn-outline-danger text-center float-center mx-1"
+               href="{{ url_for('delete_blog', username=current_user.username, blog_id=blog.id) }}">Delete the blog</a>
+        </div>
+        {% endif %}
     </div>
 </header>
 <!-- Post Content-->

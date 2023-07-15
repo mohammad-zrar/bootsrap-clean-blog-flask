@@ -138,6 +138,8 @@ def user_blogs(username):
 
 @app.route("/<string:username>/favorites")
 def favorites(username):
+    if not current_user.is_authenticated:
+        return redirect(url_for('login'))
     return render_template("index.html", option="fav", username=username)
 
 
@@ -199,6 +201,40 @@ def blog_post(username):
         return render_template("blog-post.html", form=form, user=current_user)
     else:
         return redirect(url_for('user_blogs', username=username))
+
+
+@app.route("/<string:username>/edit-blog/<int:blog_id>", methods=["POST", "GET"])
+def edit_blog(blog_id, username):
+    user = User.query.filter_by(username=username).first()
+    blog = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
+    if user is None or blog is None or (username != current_user.username):
+        return f"<h3>Not allowed</h3>"
+    else:
+        edit_form = CreatePostForm(
+            title=blog.title,
+            subtitle=blog.subtitle,
+            author=blog.author,
+            body=blog.body
+        )
+        if edit_form.validate_on_submit():
+            blog.title = edit_form.title.data
+            blog.subtitle = edit_form.subtitle.data
+            blog.body = edit_form.body.data
+            db.session.commit()
+            return redirect(url_for("blog", blog_id=blog.id, username=username))
+        return render_template("edit-blog.html", form=edit_form, blog_id=blog_id, username=username)
+
+
+@app.route("/<string:username>/delete/<int:blog_id>")
+def delete_blog(username, blog_id):
+    user = User.query.filter_by(username=username).first()
+    blog_to_delete = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
+    if user is None or blog is None or (username != current_user.username):
+        return f"<h3>Not allowed</h3>"
+    else:
+        db.session.delete(blog_to_delete)
+        db.session.commit()
+    return redirect(url_for('home'))
 
 
 # Security Section
