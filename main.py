@@ -9,6 +9,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 # ---- Others ---- #
 from datetime import timedelta, date
 from re import match
+import os
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -46,7 +47,8 @@ gravatar = Gravatar(app,
 # ---- Building  Database and Tables ---- #
 db = SQLAlchemy()
 # configure the SQLite database, relative to the app instance folder
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///db.sqlite3"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 # initialize the app with the extension
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
