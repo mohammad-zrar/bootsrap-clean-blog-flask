@@ -50,7 +50,7 @@
                         <li class="list-group-item d-flex justify-content-between align-items-start">
                             <div class="ms-2 me-auto">
                                 <div class="fw-bold">{{ comment.comment_author.username }}</div>
-                                {{ comment.text|safe }}
+                                <small>{{ comment.text|safe }}</small>
                             </div>
                             <span class="badge bg-light rounded-pill"><img src="{{ comment.comment_author.email | gravatar }}"/></span>
                         </li>

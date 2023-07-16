@@ -169,7 +169,7 @@ def user_blogs(username):
     if user is None:
         return "<h1>There is no user with that username</h1>"
 
-    limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).limit(4).all()
+    limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).order_by(BlogPost.date.desc()).limit(4).all()
     return render_template("index.html", option="posts", user=user, blogs=limited_results)
 
 
@@ -202,7 +202,7 @@ def all_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
         return "There is no user with that username"
-    blogs = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).all()
+    blogs = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).order_by(BlogPost.date.desc()).all()
     return render_template("all-blogs.html", all_blogs=blogs, user=user)
 
 
@@ -245,7 +245,7 @@ def blog_post(username):
                 title=form.title.data,
                 subtitle=form.subtitle.data,
                 body=form.body.data,
-                img_url=form.img_url.data,
+                img_url="",
                 date=date.today().strftime("%B %d, %Y")
             )
             db.session.add(new_post)
