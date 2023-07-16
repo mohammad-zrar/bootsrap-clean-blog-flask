@@ -8,3 +8,4 @@ Flask-CKEditor
 Flask-Bootstrap
 gunicorn
 email-validator
+psycopg2
