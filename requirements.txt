@@ -7,3 +7,4 @@ Flask-Gravatar
 Flask-CKEditor
 Flask-Bootstrap
 gunicorn
+email-validator
