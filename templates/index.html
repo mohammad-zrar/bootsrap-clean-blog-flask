@@ -19,10 +19,10 @@
     </ul>
 </div>
 {% endif %}
-
-{% if option != "fav" %}
-<!-- Main Content-->
 <div class="container px-4 px-lg-5 mb-5">
+    {% if option != "fav" %}
+    <!-- Main Content-->
+
     {% if blogs|length == 0 %}
     <div class="text-center mt-5 lead">
         <p><u>{{ user.username }} has no blog yet</u></p>
@@ -53,17 +53,30 @@
         </div>
     </div>
     {% endfor %}
-</div>
-<!-- Pager-->
 
-{% if blogs|length != 0 %}
-<div class=" justify-content-end mb-4 text-center">
-    <a class="btn btn-primary text-uppercase" href="{{ url_for('all_blogs', username=user.username) }}"
-    >Older Posts →</a
-    >
+    <!-- Pager-->
+
+    {% if blogs|length != 0 %}
+    <div class=" justify-content-end mb-4 text-center">
+        <a class="btn btn-primary text-uppercase" href="{{ url_for('all_blogs', username=user.username) }}"
+        >Older Posts →</a
+        >
+    </div>
+    {% endif %}
+    {% else %}
+    {% for favorite in current_user.favouring %}
+    <div class="row  gx-lg-5 justify-content-center">
+        <div class="card mb-3 col-md-8 col-lg-6 col-xl-6">
+            <a href="{{ url_for('user_blogs', username=favorite.username) }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ favorite.username }}</h5>
+                <p class="card-text mt-0">{{ favorite.bio }}</p>
+            </div></a>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
 </div>
-{% endif %}
-{% endif %}
 {% include "./layout/footer.html" %}
 {% endblock %}
 

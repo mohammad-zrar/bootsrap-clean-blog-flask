@@ -163,7 +163,6 @@ def profile(username):
         return render_template('profile.html', username=current_user.username, user=current_user, form=edit_form)
 
 
-
 @app.route("/<string:username>/blogs")
 def user_blogs(username):
     user = User.query.filter_by(username=username).first()
@@ -175,10 +174,27 @@ def user_blogs(username):
 
 
 @app.route("/<string:username>/favorites")
+@login_required
 def favorites(username):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
-    return render_template("index.html", option="fav", username=username)
+    return render_template("index.html", option="fav", user=current_user)
+
+
+@app.route("/<string:username>/favorite/<string:username_to_favorite>")
+@login_required
+def favorite(username, username_to_favorite):
+    user_to_favorite = User.query.filter_by(username=username_to_favorite).first()
+
+    if user_to_favorite is not None:
+        if user_to_favorite not in current_user.favouring:
+            current_user.favouring.append(user_to_favorite)
+            db.session.commit()
+        else:
+            current_user.favouring.remove(user_to_favorite)
+            db.session.commit()
+
+    return redirect(url_for('user_blogs', username=username_to_favorite))
 
 
 @app.route('/<string:username>/all-blogs')

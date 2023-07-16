@@ -10,12 +10,20 @@
             </div>
 
         </div>
-        {% if current_user.username == user.username %}
         <div class="text-center mt-4 mb-0">
+            {% if current_user.username == user.username %}
+
             <a class="btn btn-outline-primary text-center float-center mx-auto"
                href="{{ url_for('blog_post', username=current_user.username) }}">Post a blog</a>
+
+            {% elif current_user.username %}
+            <a class="btn btn-outline-primary text-center float-center mx-auto"
+               href="{{ url_for('favorite', username=current_user.username, username_to_favorite=user.username) }}">
+                {{ 'Remove from favorites' if user in current_user.favouring else 'Add to favorites' }}
+            </a>
+
+            {% endif %}
         </div>
-        {% endif %}
 
     </div>
 
