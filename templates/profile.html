@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}Clean Blog{% endblock %}
+
+{% block content %}
+{% include "./layout/navbar.html" %}
+{% include "./layout/header.html" %}
+
+<div class="container col-lg-6 col-md-10 col-sm-12 mx-auto my-5">
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p class="text-warning my-1">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+    </div>
+
+
+</div>
+
+
+{% include "./layout/footer.html" %}
+{% endblock content %}

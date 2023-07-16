@@ -14,7 +14,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
-from forms import RegisterForm, CreatePostForm, CommentForm
+from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
@@ -30,6 +30,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
 
 gravatar = Gravatar(app,
                     size=24,
@@ -124,6 +125,43 @@ def home():
         return redirect(url_for('login'))
     else:
         return redirect(url_for('user_blogs', username=current_user.username))
+
+
+@app.route("/<string:username>/profile", methods=["POST", "GET"])
+@login_required
+def profile(username):
+    if current_user.username != username:
+        return redirect(url_for('home'))
+    else:
+        user = User.query.filter_by(username=username).first()
+        edit_form = EditProfileForm(
+            email=user.email,
+            username=user.username,
+            bg_color=user.bg_color,
+            bio=user.bio,
+        )
+        if edit_form.validate_on_submit():
+            new_email = edit_form.email.data
+            new_username = edit_form.username.data.lower()
+            new_bg_color = edit_form.bg_color.data
+            new_bio = edit_form.bio.data
+            check_user = User.query.filter_by(username=new_username).first()
+
+            if check_user and check_user.username != username:
+                flash("This username name already exists try another one!")
+                return redirect(url_for('profile', username=current_user.username, form=edit_form))
+            elif not match(r'^[a-z][a-z0-9-_]*$', new_username):
+                flash("The username must be start with letters and only contains letter or - or _ or [0-9]")
+                return redirect(url_for('profile', username=current_user.username, form=edit_form))
+            else:
+                user.email = new_email
+                user.username = new_username
+                user.bg_color = new_bg_color
+                user.bio = new_bio
+                db.session.commit()
+                return redirect(url_for('user_blogs', username=current_user.username))
+        return render_template('profile.html', username=current_user.username, user=current_user, form=edit_form)
+
 
 
 @app.route("/<string:username>/blogs")

@@ -29,3 +29,15 @@ class CommentForm(FlaskForm):
     submit = SubmitField("Submit Comment")
 
 
+class EditProfileForm(FlaskForm):
+    email = EmailField("Email: ", validators=[DataRequired(), Email()])
+    username = StringField("Username: ", validators=[DataRequired()])
+    bg_color = SelectField('Choice a background color',
+                           choices=[('000000', 'Black'), ('37306B', 'Navy'),
+                                    ('862B0D', 'Maroon'), ('454545', 'Dark Gray')]
+                           )
+    bio = TextAreaField("Bio: ", validators=[Length(max=250)])
+    submit = SubmitField("Save", render_kw={"style": "margin-top: 15px;"})
+
+
+
