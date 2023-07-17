@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
@@ -321,7 +321,6 @@ def login():
                 return redirect(url_for('login'))
             else:
                 login_user(user)
-                session.permanent = True
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
@@ -366,8 +365,6 @@ def register():
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user)
-                session.permanent = True
-                session['username'] = new_user.username
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
@@ -380,7 +377,6 @@ def register():
 @login_required
 def logout():
     logout_user()
-    session.pop("username", None)
     return redirect(url_for('login'))
 
 
