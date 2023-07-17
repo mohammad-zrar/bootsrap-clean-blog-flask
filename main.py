@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
@@ -293,6 +293,12 @@ def delete_blog(username, blog_id):
     return redirect(url_for('home'))
 
 
+@app.route("/search", methods=["POST", "GET"])
+def search():
+    if request.method == "GET":
+        return redirect(url_for("user_blogs", username=request.args.get('search')))
+
+
 # Security Section
 @app.route("/login", methods=["POST", "GET"])
 def login():
@@ -315,18 +321,14 @@ def login():
                 # Email exists and password correct
             else:
                 login_user(user)
+                session.permanent = True
+                session['username'] = user.username
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
                     print("User Failed to login")
                 return redirect(url_for('home'))
         return render_template('login.html')
-
-
-@app.route("/search", methods=["POST", "GET"])
-def search():
-    if request.method == "GET":
-        return redirect(url_for("user_blogs", username=request.args.get('search')))
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -364,7 +366,8 @@ def register():
                 db.session.add(new_user)
                 db.session.commit()
                 login_user(new_user)
-
+                session.permanent = True
+                session['username'] = user.username
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
@@ -377,6 +380,7 @@ def register():
 @login_required
 def logout():
     logout_user()
+    session.pop("username", None)
     return redirect(url_for('login'))
 
 
