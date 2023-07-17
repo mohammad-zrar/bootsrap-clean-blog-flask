@@ -6,6 +6,7 @@ from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
 # ---- For security ---- #
 from werkzeug.security import generate_password_hash, check_password_hash
+from flask_wtf.csrf import CSRFProtect
 # ---- Others ---- #
 from datetime import timedelta, date
 from re import match
@@ -15,14 +16,14 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
-from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm
+from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
 app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
-
+csrf = CSRFProtect(app)
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -300,35 +301,34 @@ def search():
 
 
 # Security Section
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('user_blogs', username=current_user.username))
     else:
-        if request.method == "POST":
-            username = request.form['username']
-            password = request.form['password']
+        form = LoginForm()
+        if form.validate_on_submit():
+            username = form.username.data
+            password = form.password.data
 
-            # Find user by email entered.
+            # Find user by username entered.
             user = User.query.filter_by(username=username).first()
             if not user:
                 flash("That username does not exist, please try again.")
                 return redirect(url_for('login'))
-                # Password incorrect
             elif not check_password_hash(user.password, password):
-                flash('Password incorrect, please try again.')
+                flash('Incorrect password, please try again.')
                 return redirect(url_for('login'))
-                # Email exists and password correct
             else:
                 login_user(user)
                 session.permanent = True
-                session['username'] = user.username
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
-                    print("User Failed to login")
+                    print("User failed to log in")
                 return redirect(url_for('home'))
-        return render_template('login.html')
+
+        return render_template('login.html', form=form)
 
 
 @app.route("/register", methods=["POST", "GET"])
@@ -367,7 +367,7 @@ def register():
                 db.session.commit()
                 login_user(new_user)
                 session.permanent = True
-                session['username'] = user.username
+                session['username'] = new_user.username
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
