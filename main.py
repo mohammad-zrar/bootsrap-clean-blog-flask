@@ -24,6 +24,7 @@ app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
+csrf.init_app(app)
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
