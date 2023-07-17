@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
@@ -20,16 +20,11 @@ from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, Lo
 
 app = Flask(__name__)
 app.secret_key = "clean-blog1234"
-app.permanent_session_lifetime = timedelta(hours=24)
+# app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
 
-app.config['SESSION_COOKIE_SECURE'] = True
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['REMEMBER_COOKIE_SECURE'] = True
-app.config['REMEMBER_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_DOMAIN'] = 'https://clean-blog-305z.onrender.com'
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -327,8 +322,6 @@ def login():
                 return redirect(url_for('login'))
             else:
                 login_user(user)
-                session.permanent = True
-                session['csrf_token'] = csrf.generate_csrf()
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
@@ -372,8 +365,6 @@ def register():
                 )
                 db.session.add(new_user)
                 db.session.commit()
-                session.permanent = True
-                session['csrf_token'] = csrf.generate_csrf()
                 login_user(new_user)
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
@@ -387,7 +378,6 @@ def register():
 @login_required
 def logout():
     logout_user()
-    session.pop('csrf_token', None)
     return redirect(url_for('login'))
 
 
