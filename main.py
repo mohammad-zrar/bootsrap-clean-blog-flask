@@ -26,7 +26,7 @@ ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
 csrf.init_app(app)
 app.config['WTF_CSRF_CHECK_DEFAULT'] = False
-app.config['SERVER_NAME'] = 'https://clean-blog-305z.onrender.com/'
+app.config['SERVER_NAME'] = 'https://clean-blog-305z.onrender.com'
 app.config['PREFERRED_URL_SCHEME'] = 'https'
 app.config['REVERSE_PROXY_SETUP'] = True
 
