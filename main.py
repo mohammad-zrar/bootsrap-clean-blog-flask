@@ -11,6 +11,8 @@ from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta, date
 from re import match
 import os
+import secrets
+import string
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
@@ -19,7 +21,12 @@ from sqlalchemy.orm import relationship
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'clean-blog1234'
+
+def generate_secret_key(length):
+    characters = string.ascii_letters + string.digits + string.punctuation
+    return ''.join(secrets.choice(characters) for _ in range(length))
+
+app.config['SECRET_KEY'] = generate_secret_key(32)
 # app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
