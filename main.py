@@ -19,12 +19,12 @@ from sqlalchemy.orm import relationship
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
 app = Flask(__name__)
-app.secret_key = "clean-blog1234"
+app.config['SECRET_KEY'] = 'clean-blog1234'
 # app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
-
+app.config['WTF_CSRF_ENABLED'] = True
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
