@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, request, flash
+from flask import Flask, render_template, redirect, url_for, request, flash, session
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
@@ -11,12 +11,19 @@ from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta, date
 from re import match
 import os
+import uuid
+
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.orm import relationship
 
 # ---- Forms ---- #
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
+
+
+def generate_session_id():
+    return str(uuid.uuid4())
+
 
 app = Flask(__name__)
 
@@ -35,6 +42,8 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
+    session_cookie_name = 'myapp_session_' + session.get('session_id', '')
+    app.config['SESSION_COOKIE_NAME'] = session_cookie_name
     return User.query.get(int(user_id))
 
 
@@ -131,6 +140,9 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else:
+        session['session_id'] = generate_session_id()  # Generate a new session ID
+        session_cookie_name = 'myapp_session_' + session.get('session_id', '')
+        app.config['SESSION_COOKIE_NAME'] = session_cookie_name
         return redirect(url_for('user_blogs', username=current_user.username))
 
 
@@ -325,7 +337,6 @@ def login():
                 return redirect(url_for('login'))
             else:
                 login_user(user)
-                print(form.csrf_token.data)
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
