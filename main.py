@@ -131,7 +131,6 @@ db.create_all()
 
 
 @app.route("/")
-@csrf.exempt
 def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
@@ -141,7 +140,6 @@ def home():
 
 @app.route("/<string:username>/profile", methods=["POST", "GET"])
 @login_required
-@csrf.exempt
 def profile(username):
     if current_user.username != username:
         return redirect(url_for('home'))
@@ -177,7 +175,6 @@ def profile(username):
 
 
 @app.route("/<string:username>/blogs")
-@csrf.exempt
 def user_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
@@ -189,7 +186,6 @@ def user_blogs(username):
 
 @app.route("/<string:username>/favorites")
 @login_required
-@csrf.exempt
 def favorites(username):
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
@@ -198,7 +194,6 @@ def favorites(username):
 
 @app.route("/<string:username>/favorite/<string:username_to_favorite>")
 @login_required
-@csrf.exempt
 def favorite(username, username_to_favorite):
     user_to_favorite = User.query.filter_by(username=username_to_favorite).first()
 
@@ -214,7 +209,6 @@ def favorite(username, username_to_favorite):
 
 
 @app.route('/<string:username>/all-blogs')
-@csrf.exempt
 def all_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
@@ -224,7 +218,6 @@ def all_blogs(username):
 
 
 @app.route('/<string:username>/blog/<int:blog_id>', methods=["GET", "POST"])
-@csrf.exempt
 def blog(username, blog_id):
     global gravatar
     user = User.query.filter_by(username=username).first()
@@ -252,7 +245,6 @@ def blog(username, blog_id):
 
 
 @app.route("/<string:username>/blog-post", methods=["POST", "GET"])
-@csrf.exempt
 @login_required
 def blog_post(username):
     if current_user.username == username:
@@ -277,7 +269,6 @@ def blog_post(username):
 
 
 @app.route("/<string:username>/edit-blog/<int:blog_id>", methods=["POST", "GET"])
-@csrf.exempt
 def edit_blog(blog_id, username):
     user = User.query.filter_by(username=username).first()
     blog = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
@@ -300,7 +291,6 @@ def edit_blog(blog_id, username):
 
 
 @app.route("/<string:username>/delete/<int:blog_id>")
-@csrf.exempt
 def delete_blog(username, blog_id):
     user = User.query.filter_by(username=username).first()
     blog_to_delete = db.session.query(BlogPost).filter(BlogPost.author_id == user.id, BlogPost.id == blog_id).first()
@@ -313,7 +303,6 @@ def delete_blog(username, blog_id):
 
 
 @app.route("/search", methods=["POST", "GET"])
-@csrf.exempt
 def search():
     if request.method == "GET":
         return redirect(url_for("user_blogs", username=request.args.get('search')))
@@ -321,7 +310,6 @@ def search():
 
 # Security Section
 @app.route("/login", methods=["GET", "POST"])
-@csrf.exempt
 def login():
     if current_user.is_authenticated:
         return redirect(url_for('user_blogs', username=current_user.username))
@@ -341,6 +329,7 @@ def login():
                 return redirect(url_for('login'))
             else:
                 login_user(user)
+                print(form.csrf_token.data)
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
                 else:
@@ -351,7 +340,6 @@ def login():
 
 
 @app.route("/register", methods=["POST", "GET"])
-@csrf.exempt
 def register():
     if current_user.is_authenticated:
         return redirect(url_for('user_blogs', username=current_user.username))
@@ -395,7 +383,6 @@ def register():
 
 
 @app.route('/logout')
-@csrf.exempt
 @login_required
 def logout():
     logout_user()
@@ -403,7 +390,6 @@ def logout():
 
 
 @app.route("/reset_password")
-@csrf.exempt
 def reset_password():
     return "Reset password page"
 
