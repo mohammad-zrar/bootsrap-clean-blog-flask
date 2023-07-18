@@ -19,20 +19,16 @@ from sqlalchemy.orm import relationship
 # ---- Forms ---- #
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
-
-
-
 app = Flask(__name__)
 
 
 app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
-# app.config['WTF_CSRF_ENABLED'] = True
+app.config['WTF_CSRF_ENABLED'] = True
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 csrf = CSRFProtect(app)
 
 
@@ -318,7 +314,7 @@ def login():
             username = form.username.data
             password = form.password.data
 
-            # Find user by username entered.
+            # Find user by  username entered.
             user = User.query.filter_by(username=username).first()
             if not user:
                 flash("That username does not exist, please try again.")

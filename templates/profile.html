@@ -11,16 +11,16 @@
 
     <div class="container">
         <form method="POST">
-             {{ form.hidden_tag() }}
-           {{ form.csrf_token }}
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
+            {{ form.hidden_tag() }}
+            {{ form.csrf_token }}
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
             {% for message in messages %}
-                <p class="text-warning my-1">{{ message }}</p>
+            <p class="text-warning my-1">{{ message }}</p>
             {% endfor %}
-        {% endif %}
-    {% endwith %}
-        {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+            {% endif %}
+            {% endwith %}
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
         </form>
 
     </div>

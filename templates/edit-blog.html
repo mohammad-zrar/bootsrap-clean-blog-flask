@@ -12,10 +12,10 @@
     <div class="container">
         <form method="post">
             {{ form.hidden_tag() }}
-        {{ form.csrf_token }}
-                {{ ckeditor.load() }}
-                {{ ckeditor.config(name='body') }}
-                {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+            {{ form.csrf_token }}
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='body') }}
+            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
         </form>
 
 
