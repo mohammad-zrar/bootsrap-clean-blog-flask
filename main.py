@@ -11,7 +11,6 @@ from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta, date
 from re import match
 import os
-import secrets
 
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
@@ -21,16 +20,13 @@ from sqlalchemy.orm import relationship
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
 
-def generate_unique_secret_key():
-    # Generate a random secret key using secrets module
-    secret_key = secrets.token_hex(16)  # Generate a 32-character (16 bytes) secret key
-    return secret_key
+
 
 
 app = Flask(__name__)
 
 
-app.config['SECRET_KEY'] = generate_unique_secret_key()
+app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
@@ -42,7 +38,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    print("to")
+    print("load_user")
     return User.query.get(int(user_id))
 
 
@@ -333,10 +329,7 @@ def login():
                 return redirect(url_for('login'))
             else:
                 login_user(user)
-                if current_user.is_authenticated:
-                    print(f"{current_user.username} logged in")
-                else:
-                    print("User failed to log in")
+                print("login_user(user)")
                 return redirect(url_for('home'))
 
         return render_template('login.html', form=form)
@@ -376,12 +369,8 @@ def register():
                 )
                 db.session.add(new_user)
                 db.session.commit()
-                print("from")
                 login_user(new_user)
-                if current_user.is_authenticated:
-                    print(f"{current_user.username} logged in")
-                else:
-                    print("User Failed to login")
+                print("login_user(user)")
                 return redirect(url_for('home'))
         return render_template("register.html", form=register_form)
 
