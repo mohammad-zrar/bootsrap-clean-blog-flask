@@ -10,7 +10,9 @@
 <div class="container col-lg-6 col-md-10 col-sm-12 mx-auto my-5">
 
     <div class="container">
-        {{ form.hidden_tag() }}
+        <form method="POST">
+             {{ form.hidden_tag() }}
+           {{ form.csrf_token }}
         {% with messages = get_flashed_messages() %}
         {% if messages %}
             {% for message in messages %}
@@ -19,6 +21,8 @@
         {% endif %}
     {% endwith %}
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+        </form>
+
     </div>
 
 

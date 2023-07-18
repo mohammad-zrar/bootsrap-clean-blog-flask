@@ -10,10 +10,14 @@
 <div class="container col-lg-6 col-md-10 col-sm-12 mx-auto my-5">
 
     <div class="container">
-        {{ form.hidden_tag() }}
+        <form method="post">
+            {{ form.hidden_tag() }}
+        {{ form.csrf_token }}
                 {{ ckeditor.load() }}
                 {{ ckeditor.config(name='body') }}
                 {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+        </form>
+
 
     </div>
 
