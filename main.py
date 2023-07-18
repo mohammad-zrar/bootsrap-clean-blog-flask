@@ -32,6 +32,7 @@ ckeditor = CKEditor(app)
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
+app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 csrf = CSRFProtect(app)
 
 
@@ -329,7 +330,7 @@ def login():
                 login_user(user)
                 print("login_user(user)")
                 return redirect(url_for('home'))
-
+        csrf.protect()
         return render_template('login.html', form=form)
 
 
@@ -370,6 +371,7 @@ def register():
                 login_user(new_user)
                 print("login_user(user)")
                 return redirect(url_for('home'))
+        csrf.protect()
         return render_template("register.html", form=register_form)
 
 

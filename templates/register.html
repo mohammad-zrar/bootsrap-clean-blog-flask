@@ -11,7 +11,7 @@
     <p><b>Clean Blog: </b>
         Unleash your creativity and connect with like-minded writers. Log in to share your thoughts and engage in
         meaningful conversations.</p>
-    <form method="POST" action="{{ url_for('register') }}" novalidate>
+    <form method="POST" novalidate>
         {{ form.hidden_tag() }}
     {{ form.csrf_token }}
     {{ wtf.quick_form(form, button_map={"submit": "primary"}) }}
