@@ -11,7 +11,6 @@
 
     <div class="container">
         {{ form.hidden_tag() }}
-                {{ form.csrf_token }}
                 {{ ckeditor.load() }}
                 {{ ckeditor.config(name='body') }}
                 {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}

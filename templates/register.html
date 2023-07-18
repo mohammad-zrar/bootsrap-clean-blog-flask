@@ -12,7 +12,6 @@
         Unleash your creativity and connect with like-minded writers. Log in to share your thoughts and engage in
         meaningful conversations.</p>
     {{ form.hidden_tag() }}
-        {{ form.csrf_token }}
         {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
 </div>
 

@@ -6,7 +6,6 @@ from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
 # ---- For security ---- #
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask_wtf.csrf import CSRFProtect
 # ---- Others ---- #
 from datetime import timedelta, date
 from re import match
@@ -29,8 +28,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
-csrf = CSRFProtect(app)
-app.config['WTF_CSRF_ENABLED'] = True
+# app.config['WTF_CSRF_ENABLED'] = True
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -38,7 +36,6 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    print("load_user")
     return User.query.get(int(user_id))
 
 
