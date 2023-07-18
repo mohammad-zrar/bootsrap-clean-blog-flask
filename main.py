@@ -21,7 +21,6 @@ from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, Lo
 
 
 
-
 app = Flask(__name__)
 
 
@@ -32,7 +31,6 @@ ckeditor = CKEditor(app)
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
-app.config['SESSION_COOKIE_SECURE'] = False
 
 @login_manager.user_loader
 def load_user(user_id):
