@@ -43,8 +43,6 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
-    session_cookie_name = 'myapp_session_' + session.get('session_id', '')
-    app.config['SESSION_COOKIE_NAME'] = session_cookie_name
     return User.query.get(int(user_id))
 
 
@@ -141,9 +139,6 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else:
-        session['session_id'] = generate_unique_secret_key()  # Generate a new session ID
-        session_cookie_name = 'myapp_session_' + session.get('session_id', '')
-        app.config['SESSION_COOKIE_NAME'] = session_cookie_name
         return redirect(url_for('user_blogs', username=current_user.username))
 
 
