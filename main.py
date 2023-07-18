@@ -4,6 +4,7 @@ from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
+from flask_wtf.csrf import CSRFProtect
 # ---- For security ---- #
 from werkzeug.security import generate_password_hash, check_password_hash
 # ---- Others ---- #
@@ -31,6 +32,8 @@ ckeditor = CKEditor(app)
 # ----- flask-login ------ #
 login_manager = LoginManager()
 login_manager.init_app(app)
+csrf = CSRFProtect(app)
+
 
 @login_manager.user_loader
 def load_user(user_id):
