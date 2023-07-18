@@ -1,5 +1,5 @@
 # ---- Flask ---- #
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+from flask import Flask, render_template, redirect, url_for, request, flash
 from flask_bootstrap import Bootstrap
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from flask_ckeditor import CKEditor
@@ -31,7 +31,6 @@ app = Flask(__name__)
 
 
 app.config['SECRET_KEY'] = generate_unique_secret_key()
-# app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
 csrf = CSRFProtect(app)
@@ -43,6 +42,7 @@ login_manager.init_app(app)
 
 @login_manager.user_loader
 def load_user(user_id):
+    print("to")
     return User.query.get(int(user_id))
 
 
@@ -376,6 +376,7 @@ def register():
                 )
                 db.session.add(new_user)
                 db.session.commit()
+                print("from")
                 login_user(new_user)
                 if current_user.is_authenticated:
                     print(f"{current_user.username} logged in")
