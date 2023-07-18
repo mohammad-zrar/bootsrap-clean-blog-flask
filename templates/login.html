@@ -16,6 +16,7 @@
         {% endif %}
     {% endwith %}
    <form method="POST">
+       {{ form.hidden_tag() }}
     {{ form.csrf_token }}
 
     <div class="mb-3">
