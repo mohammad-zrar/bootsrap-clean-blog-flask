@@ -11,7 +11,7 @@ from flask_wtf.csrf import CSRFProtect
 from datetime import timedelta, date
 from re import match
 import os
-import uuid
+import secrets
 
 # ------------ Import SQLAlchemy ----------------- #
 from flask_sqlalchemy import SQLAlchemy
@@ -21,15 +21,16 @@ from sqlalchemy.orm import relationship
 from forms import RegisterForm, CreatePostForm, CommentForm, EditProfileForm, LoginForm
 
 
-def generate_session_id():
-    return str(uuid.uuid4())
+def generate_unique_secret_key():
+    # Generate a random secret key using secrets module
+    secret_key = secrets.token_hex(16)  # Generate a 32-character (16 bytes) secret key
+    return secret_key
 
 
 app = Flask(__name__)
 
 
-
-app.config['SECRET_KEY'] = "clean-blog1234"
+app.config['SECRET_KEY'] = generate_unique_secret_key()
 # app.permanent_session_lifetime = timedelta(hours=24)
 bootstrap = Bootstrap(app)
 ckeditor = CKEditor(app)
@@ -140,7 +141,7 @@ def home():
     if not current_user.is_authenticated:
         return redirect(url_for('login'))
     else:
-        session['session_id'] = generate_session_id()  # Generate a new session ID
+        session['session_id'] = generate_unique_secret_key()  # Generate a new session ID
         session_cookie_name = 'myapp_session_' + session.get('session_id', '')
         app.config['SESSION_COOKIE_NAME'] = session_cookie_name
         return redirect(url_for('user_blogs', username=current_user.username))
