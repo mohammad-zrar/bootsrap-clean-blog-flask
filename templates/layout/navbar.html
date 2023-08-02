@@ -20,10 +20,10 @@
                 <li class="nav-item me"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('profile', username=current_user.username) }}">Profile</a></li>
                 <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{{ url_for('logout') }}">Logout</a></li>
                 {% endif %}
-                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#">About</a></li>
+                <li class="nav-item me-5"><a class="nav-link px-lg-3 py-3 py-lg-4" href="#"></a></li>
 
                 <!-- Search Form -->
-                <li class="nav-item ms-5-lg">
+                <li class="nav-item ms-5-lg ">
                     <form class="d-flex mt-3 nav-search" method="get" action="{{ url_for('search') }}">
                         <input class="form-control form-control-sm me-2 bg-transparent text-light" type="search"
                                placeholder="Search by username" name="search" aria-label="Search">
