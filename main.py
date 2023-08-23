@@ -173,7 +173,9 @@ def profile(username):
 def user_blogs(username):
     user = User.query.filter_by(username=username).first()
     if user is None:
-        return "<h1>There is no user with that username</h1>"
+        return '''
+        <h1>Can't find any user with that username</h1>
+        <p>Make sure the username is correct or may it's not even exists</P>'''
 
     limited_results = db.session.query(BlogPost).filter(BlogPost.author_id == user.id).order_by(BlogPost.date.desc()).limit(4).all()
     return render_template("index.html", option="posts", user=user, blogs=limited_results)
